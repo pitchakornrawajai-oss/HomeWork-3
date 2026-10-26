@@ -1,0 +1,54 @@
+# Homework 3 
+
+
+
+def calculate_shipping():
+    OUTSIDE_FEE = 30
+    
+    # 1. Ask for weight
+    weight_input = input("Weight (kg): ")
+    try:
+        weight = float(weight_input)
+    except ValueError:
+        print("Please enter a valid weight")
+        return
+
+    # Check if weight is 0 or negative
+    if weight <= 0:
+        print("Please enter a valid weight")
+        return
+
+    # Check if weight exceeds maximum limit
+    if weight > 20:
+        print("Too heavy (max 20 kg)")
+        return
+
+    # 1. Ask for destination
+    destination = input("Destination (bangkok/other): ").strip().lower()
+    if destination not in ["bangkok", "other"]:
+        print("Unknown destination")
+        return
+
+    # 1. Ask for express delivery
+    express = input("Express? (yes/no): ").strip().lower()
+
+    # 2. Determine base cost based on weight tiers
+    if weight <= 1:
+        cost = 40
+    elif weight <= 5:
+        cost = 80
+    else:  # up to 20 kg
+        cost = 150
+
+    # 4. Add destination fee if outside Bangkok
+    if destination == "other":
+        cost += OUTSIDE_FEE
+
+    # 5. Double the price if express is selected
+    if express == "yes":
+        cost *= 2
+
+    print(f"Shipping cost: {cost} baht")
+
+if __name__ == "__main__":
+    calculate_shipping()
